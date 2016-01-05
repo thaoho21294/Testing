@@ -13,28 +13,36 @@ namespace DAL.Warehouse
 {
     public class DalProduct
     {
+        string con = "Data Source = LTN; Initial Catalog = QLBH_CuaHangBanMayTinhVaLinhKien; Integrated Security = True";
         public DataTable GetListProducts()
         {
-            return SqlHelper.ExecuteDataset(Constants.ConnectionString,
+            //return SqlHelper.ExecuteDataset(Constants.ConnectionString,
+            //    CommandType.StoredProcedure,
+            //    "GetListProducts").Tables[0];
+            return SqlHelper.ExecuteDataset(con,
                 CommandType.StoredProcedure,
                 "GetListProducts").Tables[0];
         }
 
         public DtoProduct GetProductByID(string id)
         {
-            DataTable dt =  SqlHelper.ExecuteDataset(Constants.ConnectionString, CommandType.Text,
+            DataTable dt =  SqlHelper.ExecuteDataset(con, CommandType.Text,
                 "select * from SANPHAM where MaSanPham = @MaSanPham", new SqlParameter("@MaSanPham", id)).Tables[0];
-            DtoProduct dto = new DtoProduct(
-                dt.Rows[0].ItemArray[0].ToString(),
-                dt.Rows[0].ItemArray[1].ToString(),
-                dt.Rows[0].ItemArray[2].ToString(),
-                int.Parse(dt.Rows[0].ItemArray[3].ToString()),
-                double.Parse(dt.Rows[0].ItemArray[4].ToString()),
-                double.Parse(dt.Rows[0].ItemArray[5].ToString()),
-                int.Parse(dt.Rows[0].ItemArray[6].ToString()),
-                dt.Rows[0].ItemArray[7].ToString(),
-                dt.Rows[0].ItemArray[8].ToString()
-                );
+            DtoProduct dto = new DtoProduct();
+            if (dt.Rows.Count > 0)
+            {
+                 dto = new DtoProduct(
+                    dt.Rows[0].ItemArray[0].ToString(),
+                    dt.Rows[0].ItemArray[1].ToString(),
+                    dt.Rows[0].ItemArray[2].ToString(),
+                    int.Parse(dt.Rows[0].ItemArray[3].ToString()),
+                    double.Parse(dt.Rows[0].ItemArray[4].ToString()),
+                    double.Parse(dt.Rows[0].ItemArray[5].ToString()),
+                    int.Parse(dt.Rows[0].ItemArray[6].ToString()),
+                    dt.Rows[0].ItemArray[7].ToString(),
+                    dt.Rows[0].ItemArray[8].ToString()
+                    );
+            }
             return dto;
         }
 
@@ -54,16 +62,20 @@ namespace DAL.Warehouse
             };
             try
             {
-                return SqlHelper.ExecuteNonQuery(Constants.ConnectionString, CommandType.StoredProcedure, "AddProduct",
+                return SqlHelper.ExecuteNonQuery(con, CommandType.StoredProcedure, "AddProduct",
                     para);
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
-                throw new ArgumentException(Constants.MsgExceptionSql);
+                return 0;
+                throw e;
+                
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw new AggregateException(Constants.MsgExceptionError);
+                return 0;
+                throw e;
+                
             }
         }
 
@@ -83,15 +95,17 @@ namespace DAL.Warehouse
             };
             try
             {
-                return SqlHelper.ExecuteNonQuery(Constants.ConnectionString, CommandType.StoredProcedure, "EditProduct",
+                return SqlHelper.ExecuteNonQuery(con, CommandType.StoredProcedure, "EditProduct",
                     para);
             }
             catch (SqlException)
             {
+                return 0;
                 throw new ArgumentException(Constants.MsgExceptionSql);
             }
             catch (Exception)
             {
+                return 0;
                 throw new AggregateException(Constants.MsgExceptionError);
             }
         }
@@ -104,15 +118,17 @@ namespace DAL.Warehouse
             };
             try
             {
-                return SqlHelper.ExecuteNonQuery(Constants.ConnectionString, CommandType.StoredProcedure, "DeleteProduct",
+                return SqlHelper.ExecuteNonQuery(con, CommandType.StoredProcedure, "DeleteProduct",
                     para);
             }
             catch (SqlException)
             {
+                return 0;
                 throw new ArgumentException(Constants.MsgExceptionSql);
             }
             catch (Exception)
             {
+                return 0;
                 throw new AggregateException(Constants.MsgExceptionError);
             }
         }

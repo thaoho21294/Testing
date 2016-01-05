@@ -149,7 +149,7 @@ namespace QuanLyCuaHangLinhKienMayTinh.Warehouse
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            if (txtMaSanPham.Text.IsEmpty())
+            if (!txtMaSanPham.Text.IsEmpty())
             {
                 if (_bllProduct.DeleteProduct(txtMaSanPham.Text))
                 {

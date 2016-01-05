@@ -25,18 +25,18 @@ namespace DTO.Warehouse
 
         public DtoProduct()
         {
-            
+
         }
 
 
         public DtoProduct(string maSanPham,
-            string tenSanPham, 
-            string loaiSanPham, 
+            string tenSanPham,
+            string loaiSanPham,
             int thoiGianBaoHanh,
             double donGiaNhap,
             double donGiaBan,
             int soLuong,
-            string donViTinh, 
+            string donViTinh,
             string ghiChu)
         {
             MaSanPham = maSanPham;
@@ -55,10 +55,9 @@ namespace DTO.Warehouse
             get { return _maSanPham; }
             set
             {
-                if (value.Length <= 10)
-                {
+                
                     _maSanPham = value;
-                }
+                
             }
         }
 
@@ -67,10 +66,9 @@ namespace DTO.Warehouse
             get { return _tenSanPham; }
             set
             {
-                if (value.Length <= 50)
-                {
+                
                     _tenSanPham = value;
-                }
+                
             }
         }
 
@@ -79,10 +77,9 @@ namespace DTO.Warehouse
             get { return _donGiaNhap; }
             set
             {
-                if (value > 0)
-                {
+                
                     _donGiaNhap = value;
-                }
+                
             }
         }
 
@@ -91,10 +88,9 @@ namespace DTO.Warehouse
             get { return _donGiaBan; }
             set
             {
-                if (value > 0)
-                {
+                
                     _donGiaBan = value;
-                }
+                
             }
         }
 
@@ -103,10 +99,9 @@ namespace DTO.Warehouse
             get { return _donViTinh; }
             set
             {
-                if (value.Length < 50)
-                {
+                
                     _donViTinh = value;
-                }
+                
             }
         }
 
@@ -115,10 +110,9 @@ namespace DTO.Warehouse
             get { return _ghiChu; }
             set
             {
-                if (value.Length < 100)
-                {
+                
                     _ghiChu = value;
-                }
+                
             }
         }
 
@@ -127,10 +121,9 @@ namespace DTO.Warehouse
             get { return _loaiSanPham; }
             set
             {
-                if (value.Length < 50)
-                {
+                 
                     _loaiSanPham = value;
-                }
+                 
             }
         }
 
@@ -143,10 +136,9 @@ namespace DTO.Warehouse
 
             set
             {
-                if (value > 0)
-                {
+                 
                     _soLuong = value;
-                }
+                 
             }
         }
 
@@ -155,10 +147,9 @@ namespace DTO.Warehouse
             get { return _thoiGianBaoHanh; }
             set
             {
-                if (value >= 0)
-                {
+                 
                     _thoiGianBaoHanh = value;
-                }
+                 
             }
         }
 
@@ -166,5 +157,17 @@ namespace DTO.Warehouse
         {
             return $"ThoiGianBaoHanh: {ThoiGianBaoHanh}, SoLuong: {SoLuong}, LoaiSanPham: {LoaiSanPham}, GhiChu: {GhiChu}, DonViTinh: {DonViTinh}, DonGiaBan: {DonGiaBan}, DonGiaNhap: {DonGiaNhap}, TenSanPham: {TenSanPham}, MaSanPham: {MaSanPham}";
         }
+
+        public override bool Equals(object obj)
+        {
+            DtoProduct _obj = (DtoProduct)obj;
+            if (_obj.MaSanPham == MaSanPham && _obj.LoaiSanPham == LoaiSanPham && _obj.GhiChu == GhiChu && _obj.DonViTinh == DonViTinh
+                && _obj.DonGiaNhap == DonGiaNhap && _obj.DonGiaBan == DonGiaBan && _obj.SoLuong == SoLuong && _obj.TenSanPham == TenSanPham && _obj.ThoiGianBaoHanh == ThoiGianBaoHanh)
+                return true;
+            return false;
+ 
+                
+        }
+
     }
 }

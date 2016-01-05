@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CommonLayer
 {
-    public static class Constants
+    public  class Constants
     {
-        public static string ConnectionString =
+        public static String ConnectionString =
             ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
         public static string MsgExceptionSql = "Lỗi kết nối";
